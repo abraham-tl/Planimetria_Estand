@@ -17,24 +17,32 @@ public class Movimiento : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Fire1"))
+       
+
+
+    }
+
+    private void OnMouseDown()
+    {
+        if (Input.GetButtonDown("Fire1"))
         {
             acomodado = false;
             movimiento = true;
         }
 
+        if ((!acomodado) && (!movimiento))
+        {
+
+        }
+    }
+
+    private void OnMouseUp()
+    {
         if (Input.GetButtonUp("Fire1"))
         {
-           
+
             movimiento = false;
         }
-
-        if((!acomodado) && (!movimiento))
-        {
-
-        }
-
-
     }
 
     void OnMouseDrag()
@@ -43,7 +51,7 @@ public class Movimiento : MonoBehaviour
         Vector3 objetoPosicion = Camera.main.ScreenToWorldPoint(posicionMouse);
 
         transform.position = objetoPosicion;
-        print(transform.name);
+        //print(transform.name);
        
     }
 
