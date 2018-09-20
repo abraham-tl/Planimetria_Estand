@@ -4,45 +4,26 @@ using UnityEngine;
 
 public class Movimiento : MonoBehaviour
 {
-   public bool acomodado = true;
-    public bool movimiento = false;
+    public Vector3 posicion_inicial;
     float distance = 10;
-
+    Inicializador iniciado;
     // Use this for initialization
     void Start()
     {
-
+        posicion_inicial = transform.position;
+        iniciado = FindObjectOfType<Inicializador>();
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-       
-
-
-    }
-
+  
     private void OnMouseDown()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            acomodado = false;
-            movimiento = true;
-        }
-
-        if ((!acomodado) && (!movimiento))
-        {
-
-        }
+      
+     
     }
 
     private void OnMouseUp()
     {
-        if (Input.GetButtonUp("Fire1"))
-        {
+        iniciado.Ubicar_producto(this.gameObject);
 
-            movimiento = false;
-        }
     }
 
     void OnMouseDrag()
@@ -51,8 +32,6 @@ public class Movimiento : MonoBehaviour
         Vector3 objetoPosicion = Camera.main.ScreenToWorldPoint(posicionMouse);
 
         transform.position = objetoPosicion;
-        //print(transform.name);
-       
-    }
 
+    }
 }
