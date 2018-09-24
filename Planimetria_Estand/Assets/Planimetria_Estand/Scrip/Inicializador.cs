@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Inicializador : MonoBehaviour {
+    public bool verificar;
     public Vector3[,] ubicaciones;
     public string[,] orden_productos;
+    public GameObject[,] estand;
     // Use this for initialization
 
     public int columnas;
@@ -14,21 +16,26 @@ public class Inicializador : MonoBehaviour {
     public int Cantidad_productos;     
 	void Start ()
     {
-       
+        verificar = false;
         columnas = 9;
         filas = 2;
-        pos_inicial_h = -8.3f;
+        pos_inicial_h = -6f;
         pos_inicial_v = 3;
         ubicaciones = new Vector3[columnas,filas];
         orden_productos = new string[columnas,filas];    
         CragarUbicaciones();
-        
+        estand = new GameObject[columnas,filas];
+        Crear_orden();
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-		
+		if(verificar)
+        {
+            verificar = false;
+            Verificar_planimtria();
+        }
 	}
     void CragarUbicaciones()
     {
@@ -40,8 +47,8 @@ public class Inicializador : MonoBehaviour {
             for (int j=0;j<columnas;j++)
             {
                 ubicaciones[j,i] = new Vector3(pos_h, pos_v, 0);
-                pos_h += 0.6f;
-                print(ubicaciones[j, i]);
+                pos_h += 0.55f;
+        
             }
             pos_v -= 2;
          
@@ -70,6 +77,7 @@ public class Inicializador : MonoBehaviour {
         if (cerca)
         {
             ob.gameObject.transform.position = ubicaciones[pos_j,pos_i];
+            estand[pos_j, pos_i] = ob;
         }
         else
         {
@@ -90,26 +98,34 @@ public class Inicializador : MonoBehaviour {
     void Crear_orden()
     {
         orden_productos[0,0] = "Shampoo_tradicional";
-        orden_productos[0,1] = "Acondicionador_tradicional";
-        orden_productos[0,2] = ""
-             //orden_productos[0,3] = ""
-             //orden_productos[0,4] = ""
-             //orden_productos[0,5] = ""
-             //orden_productos[0,6] = ""
-             //orden_productos[0,7] = ""
-             //orden_productos[1,0] = ""
-             //orden_productos[1,1] = ""
-             //orden_productos[1,2] = ""
+        orden_productos[1,0] = "Acondicionador_tradicional";
+        orden_productos[2,0] = "Locion_capilar";
+        orden_productos[3,0] = "Serum_capilar";
+        orden_productos[4,0] = "2en1";
+        orden_productos[5,0] = "Control_caspa";
+        orden_productos[6,0] = "Shampoo_hombre";
+        orden_productos[7,0] = "Gel";
+        //orden_productos[1,0] = ""
+        //orden_productos[1,1] = ""
+        //orden_productos[1,2] = ""
 
     }
 
     void Verificar_planimtria()
     {
-        for(int i =0;i<filas;i++)
+        for(int i =0;i<1;i++)
         {
             for(int j=0;j<columnas;j++)
             {
-               
+                if (estand[j,i] != null)
+                {
+                    print(orden_productos[j,i] + " VS " + estand[j,i].name);
+
+                }
+                //else
+                // {
+                //     print("Mal hubicado");
+                // }
             }
         }
     }
