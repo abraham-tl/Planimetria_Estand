@@ -13,7 +13,9 @@ public class Inicializador : MonoBehaviour {
     public int filas;
     public float pos_inicial_h;
     public float pos_inicial_v;
-    public int Cantidad_productos;     
+    public int Cantidad_productos;
+    float Tiempo;
+    int intentos;
 	void Start ()
     {
         verificar = false;
@@ -26,16 +28,25 @@ public class Inicializador : MonoBehaviour {
         CragarUbicaciones();
         estand = new GameObject[columnas,filas];
         Crear_orden();
+        Tiempo = 0;
+        intentos = 1;
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
+        if (Input.GetButtonDown("Submit"))
+        {
+            intentos += 1;
+            print("HOLA");
+        }
 		if(verificar)
         {
             verificar = false;
             Verificar_planimtria();
         }
+        Tiempo += Time.deltaTime;
+        print(Tiempo);
 	}
     void CragarUbicaciones()
     {
@@ -111,22 +122,31 @@ public class Inicializador : MonoBehaviour {
 
     }
 
-    void Verificar_planimtria()
+    public void Verificar_planimtria()
     {
+        intentos += 1;
+        bool diferencia = false;
         for(int i =0;i<1;i++)
         {
             for(int j=0;j<columnas;j++)
             {
-                if (estand[j,i] != null)
+                if (estand[j,i] != null && orden_productos[j, i] != estand[j, i].name)
                 {
-                    print(orden_productos[j,i] + " VS " + estand[j,i].name);
 
+                    diferencia = true;
                 }
-                //else
-                // {
-                //     print("Mal hubicado");
-                // }
             }
         }
-    }
+        if(diferencia)
+        {
+
+        }
+        else
+        {
+            print(Tiempo);
+        }
+
+
+    }  
+
 }
