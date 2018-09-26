@@ -46,8 +46,7 @@ public class Inicializador : MonoBehaviour {
             Verificar_planimtria();
         }
         Tiempo += Time.deltaTime;
-        print(Tiempo);
-	}
+     }
     void CragarUbicaciones()
     {
         float pos_h;
